@@ -198,6 +198,7 @@ class MainWindow(QWidget):
         self.invoiceImage.setPixmap(self.newInvoicePixMap)
 
     def process(self):
+        self.frame = cv2.imread('assets/test1.jpg', cv2.IMREAD_COLOR)
         np = procI.ProccessImage(self.frame)
         passed = np.passed
         scanned = None
