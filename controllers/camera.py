@@ -2,9 +2,9 @@ import os
 import cv2
 import controllers.processImage as procI
 from pynput.keyboard import Key, Listener
-from PyQt6.QtCore import pyqtSignal, QThread, Qt
-from PyQt6.QtGui import QImage, QPixmap
-from PyQt6 import QtGui
+from PyQt5.QtCore import pyqtSignal, QThread, Qt
+from PyQt5.QtGui import QImage, QPixmap
+from PyQt5 import QtGui
 import numpy as np
 
 

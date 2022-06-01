@@ -1,6 +1,6 @@
-from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout, QWidget, QLabel, QPushButton, QFormLayout, QLineEdit, QMessageBox
-from PyQt6.QtGui import QIntValidator, QFont, QIcon, QPixmap, QImage
-from PyQt6.QtCore import Qt, pyqtSlot
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QWidget, QLabel, QPushButton, QFormLayout, QLineEdit, QMessageBox
+from PyQt5.QtGui import QIntValidator, QFont, QIcon, QPixmap, QImage
+from PyQt5.QtCore import Qt, pyqtSlot
 import numpy as np
 import controllers.camera as cm
 import controllers.emptyKeypoints as bc
