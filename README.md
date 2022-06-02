@@ -15,7 +15,13 @@ Numpy          - used for matrix translation
 
 This is a passion project. Feel free to fork, change, and edit. Some features have been commented out as they were not needed by the company I am currently with.
 
-![alt text](https://github.com/hkitts/InvoiceScanner/tree/main/assets/Example1.png)
 
 
-![alt text](https://github.com/hkitts/InvoiceScanner/tree/main/assets/Example2.png)
+#Empty invoice example.
+![](assets/Example1.png)
+
+
+
+
+#Scanned invoice example.
+![](assets/Example2.png)
