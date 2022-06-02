@@ -25,3 +25,8 @@ This is a passion project. Feel free to fork, change, and edit. Some features ha
 
 # Scanned Invoice Example
 ![](assets/Example2.png)
+
+
+# Followup
+
+The detail of the images on the GUI are intentionally set at a low resolution. I designed this to run on a machine running OS X Mavericks. The image that is cropped, however, is set to the highest resolution the webcam can run. 
