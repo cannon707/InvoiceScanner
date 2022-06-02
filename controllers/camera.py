@@ -1,7 +1,7 @@
 import os
 import cv2
 import controllers.processImage as procI
-from pynput.keyboard import Key, Listener
+#from pynput.keyboard import Key, Listener
 from PyQt5.QtCore import pyqtSignal, QThread, Qt
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5 import QtGui
