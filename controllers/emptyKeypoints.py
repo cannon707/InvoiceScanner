@@ -1,3 +1,7 @@
+
+# This file was left in although this method do not work with
+# the current invoices
+# depending on whats being scanned this may be a better way
 import cv2
 
 class EmptyKey():

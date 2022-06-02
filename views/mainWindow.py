@@ -120,7 +120,12 @@ class MainWindow(QWidget):
         self.mainLayout.addLayout(dataLayout)
 
     # shows video feed and recently scanned invoice
+    # left most box is the video feed
+    # right most box is the recent invoice that was scanned
+    # the scanned invoice must be converted from OpenCV to PyQt label
     def imageBar(self):
+        # this detail is not  what detail the image is saved at
+        # it is down scaled for speed
         cam_width = 640
         cam_height = 480
         self.cameraLabel = QLabel()
@@ -145,24 +150,29 @@ class MainWindow(QWidget):
 
         self.mainLayout.addLayout(imageBarLayout)
 
+    # starts the camera as its own thread
+    # then connects the camera 
     def video(self):
         self.videoThread = cm.Camera()
-
         self.videoThread.pixmap_signal.connect(self.updateVideoLabel)
-
         self.videoThread.start()
 
+    # currently not used
+    # could be used if needed
     def stopVideo(self, event):
         self.videoThread.stop()
         event.accept()
 
+    # updates on every frame for the video thread
+    # this is so the video can be displayed
     @pyqtSlot(np.ndarray)
     def updateVideoLabel(self, frame):
         self.frame = frame
         convertedFrame = self.videoThread.convertFrame(frame)
-        
         self.cameraLabel.setPixmap(convertedFrame)
 
+    # frame is converted from OpenCV format
+    # to pixelmap format so PyQt can dislay it
     def convertFrame(self, frame):
         rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         height, width, channel = rgb_frame.shape
@@ -171,17 +181,25 @@ class MainWindow(QWidget):
         scaled_frame = qt_frame.scaledToHeight(480, Qt.TransformationMode.FastTransformation)
         return QPixmap.fromImage(scaled_frame)
 
+    # starts a new scan
+    # a new scan will alwyas set the current page to 0
     def newScan(self):
         self.currentPage = 0
         self.invoice.clear() 
         self.scan()
         self.setDisplayInvoice()
 
+    # add cans another page and adds it to an
+    # array of images
     def addPage(self):
         self.savePage()
         self.scan()
         self.setDisplayInvoice()
 
+    # When a scan is called
+    # the image is processed using OpenCV
+    # then the data bars are filled in given
+    # the text deteection
     def scan(self):
         self.invoiceScan, self.dispInvoice, passed = self.process()
         if passed:
@@ -193,11 +211,17 @@ class MainWindow(QWidget):
             invoiceFileName = TextDetect.textFound[0] + '.pdf'
             self.fileNameForm.setText(invoiceFileName)
 
+    # this takes the scanned invoice and sets it to be diplayed
+    # on the bottom right of screen
     def setDisplayInvoice(self):
         self.newInvoicePixMap = QPixmap(self.dispInvoice).scaledToHeight(480, Qt.TransformationMode.FastTransformation)
         self.invoiceImage.setPixmap(self.newInvoicePixMap)
 
+    # processing of the current frame
+    # it is scanned, cropped, and
+    # translated so it can be displayed
     def process(self):
+        # this line is for testing without a camera
         self.frame = cv2.imread('assets/test1.jpg', cv2.IMREAD_COLOR)
         np = procI.ProccessImage(self.frame)
         passed = np.passed
@@ -206,12 +230,17 @@ class MainWindow(QWidget):
             scanned = self.convertFrame(np.invoiceWarped)
         return np.invoiceWarped, scanned, passed
 
+    # saves the last scan to an array of images
+    # this is so multiple pages can be scanned
     def savePage(self):
         invNum = self.invoiceForm.text()
         custNumber = self.customerForm.text()
         pageNumber = self.currentPage
         self.invoice.addPage(invNum, custNumber, pageNumber, self.invoiceScan, self.dispInvoice)
 
+    # almost the same exact thing as scan
+    # this is so if the previous scan was bad
+    # it can be retaken
     def rescan(self):
         self.invoiceScan, self.dispInvoice, passed = self.process()
         if passed:
@@ -222,6 +251,7 @@ class MainWindow(QWidget):
             invoiceFileName = TextDetect.textFound[0] + '.pdf'
             self.fileNameForm.setText(invoiceFileName)
 
+    # writes the images of the invoice to a file
     def writeInvoice(self):
         filename = self.fileNameForm.text()
         self.invoice.setFilename(filename)
@@ -232,7 +262,9 @@ class MainWindow(QWidget):
         ret = dialog.exec()
 
         #self.invoice.printInvoiceData()
-
+    
+    # currently doesn't do anything
+    # could be implimented
     def emailAndWrite(self):
         email = self.emailForm.text()
         self.invoice.setEmail(email)
