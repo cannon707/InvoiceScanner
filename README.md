@@ -29,4 +29,4 @@ This is a passion project. Feel free to fork, change, and edit. Some features ha
 
 # Followup
 
-The detail of the images on the GUI are intentionally set at a low resolution. I designed this to run on a machine running OS X Mavericks. The image that is cropped, however, is set to the highest resolution the webcam can run. 
+The detail of the images on the GUI are intentionally set at a low resolution. I designed this to run on a machine running OS X Mavericks. The image that is cropped, however, is set to the highest resolution the webcam can run. So the saved image will be a much better quality. 
